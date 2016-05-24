@@ -12,7 +12,7 @@ public class FindPaths {
 //			System.err.println("USAGE: java Paths <vertex_file> <edge_file>");
 //			System.exit(1);
 //		}
-//		MyGraph g = readGraph(args[0],args[1]);
+		MyGraph g = readGraph(args[0],args[1]);
 		
 //	    String vrtFileName = "C:/Users/Christian/Documents/UWT/t css 342/group project/Proj 3/myVertex.txt";
 //	    String edgFileName = "C:/Users/Christian/Documents/UWT/t css 342/group project/Proj 3/myEdge.txt";
