@@ -21,7 +21,52 @@ public class FindPaths {
     public static void heapImplementation (SimpleGraph graph) {
         DijkstraBinaryHeap bHeap = new DijkstraBinaryHeap(graph.numVertices());
 
-        Path p = dijkstra(graph, bHeap, graph.aVertex(), graph.aVertex());
+        HashMap<String, Vertex> vMap = new HashMap<>();
+        Iterator vit = graph.vertices();
+
+        while (vit.hasNext()) {
+            Vertex v = (Vertex) vit.next();
+            vMap.put((String) v.getName(), v);
+        }
+
+        Scanner s = new Scanner(System.in);
+        while (true) {
+            String userInput = s.next();
+            String[] toAndFrom = userInput.split("-");
+
+            if (toAndFrom[0].equals("EXIT")) {
+                System.out.println("Goodbye");
+                break;
+            }
+
+            Path p = dijkstra(graph, bHeap, vMap.get(toAndFrom[0].toUpperCase()), vMap.get(toAndFrom[1].toUpperCase()));
+
+            VertexData priorData = null;
+            Vertex priorVertex = null;
+            for (Vertex v : p.vertices) {
+                VertexData vData = (VertexData) v.getData();
+                if (priorVertex != null && priorData != null) {
+                    System.out.print(priorVertex.getName() +
+                            " --- " + (vData.getDistFromSource() - priorData.getDistFromSource()) + " ---> ");
+
+                }
+                priorVertex = v;
+                priorData = vData;
+            }
+
+            System.out.print(" " + priorVertex.getName() + " ( " + priorData.getDistFromSource() + " )");
+            System.out.println();
+            resetSimpleGraph(graph);
+        }
+    }
+
+    private static void resetSimpleGraph(SimpleGraph g) {
+        Iterator vit = g.vertices();
+
+        while (vit.hasNext()) {
+            Vertex v = (Vertex) vit.next();
+            v.setData(new VertexData());
+        }
     }
 
 	public static Scanner readFile (String filePath) {
