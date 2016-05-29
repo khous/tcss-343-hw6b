@@ -22,7 +22,10 @@ public abstract class AbstractVertexQueue {
      * This is how we can insert into our respective queues. This should probably return the index that it was logically
      * inserted into
      * @param v The vertex to emplace
+     * @param vDist The dist of v to the source
      * @return The index or what ever significant value you want to return
      */
-    public abstract int insert (Vertex v);
+    public abstract int insert (Vertex v, int vDist);
+
+    public abstract int getVertexCount ();
 }

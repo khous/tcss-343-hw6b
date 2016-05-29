@@ -1,8 +1,4 @@
-package startercode;/*
- * Written by Ed Hong UWT Feb. 19, 2003.
- * Modified by Donald Chinn May 14, 2003.
- * Modified by Donald Chinn December 11, 2003.
- */
+package startercode;
 
 import java.util.*;
 

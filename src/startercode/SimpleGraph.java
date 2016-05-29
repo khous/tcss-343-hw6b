@@ -1,8 +1,4 @@
-package startercode;/*
- * Written by Ed Hong UWT Feb. 17, 2003.
- * Modified by Donald Chinn May 14, 2003.
- * Modified by Donald Chinn December 11, 2003.
- */
+package startercode;
 
 import java.util.*;
 
@@ -129,7 +125,7 @@ public class SimpleGraph {
     }
 
     /**
-     * Code to test the correctness of the SimpleGraph methods.
+     * Code to test the correctness of the startercode.SimpleGraph methods.
      */
     public static void main(String[] args) {
         // create graph a----b-----c,
@@ -163,7 +159,7 @@ public class SimpleGraph {
         System.out.println("Iterating through adjacency lists...");
         for (i= G.vertices(); i.hasNext(); ) {
             v = (Vertex) i.next();
-            System.out.println("Vertex "+v.getName());
+            System.out.println("startercode.Vertex "+v.getName());
             Iterator j;
             
             for (j = G.incidentEdges(v); j.hasNext();) {

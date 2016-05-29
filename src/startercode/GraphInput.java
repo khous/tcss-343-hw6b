@@ -6,7 +6,6 @@ package startercode; /**
 
 import java.io.*;
 import java.util.*;
-import java.text.*;
 
 /**
  * A class that can read a graph (in a specific format) from a file.
@@ -19,10 +18,10 @@ public class GraphInput {
     /**
      * Load graph data from a text file via user interaction.
      * This method asks the user for a directory and path name.
-     * It returns a hashtable of (String, Vertex) pairs.
+     * It returns a hashtable of (String, startercode.Vertex) pairs.
      * newgraph needs to already be initialized.
      * @param newgraph  a simple graph
-     * @returns a hash table of (String, Vertex) pairs
+     * @returns a hash table of (String, startercode.Vertex) pairs
      */
     public static Hashtable LoadSimpleGraph(SimpleGraph newgraph) {
         System.out.print("Please enter the full path and file name for the input data: ");
@@ -38,11 +37,11 @@ public class GraphInput {
      * representing vertex labels and the third is an edge weight (a double).
      * Each line represents one edge.
      * 
-     * This method returns a hashtable of (String, Vertex) pairs.
+     * This method returns a hashtable of (String, startercode.Vertex) pairs.
      * 
      * @param newgraph  a graph to add edges to. newgraph should already be initialized
      * @param pathandfilename  the name of the file, including full path.
-     * @returns  a hash table of (String, Vertex) pairs
+     * @returns  a hash table of (String, startercode.Vertex) pairs
      */
     public static Hashtable LoadSimpleGraph(SimpleGraph newgraph, String pathandfilename){
         BufferedReader  inbuf = InputLib.fopen(pathandfilename);
