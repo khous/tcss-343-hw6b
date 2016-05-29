@@ -5,11 +5,6 @@ import startercode.Vertex;
 import java.util.*;
 import java.io.*;
 
-/**
- * Driver program that reads in a graph and prompts user for shortests paths in the graph.
- * (Intentionally without comments.  Read through the code to understand what it does.)
- */
-
 public class FindPaths {
 	public static void main(String[] args) {
 		SimpleGraph graph = generateGraph(args[0], args[1]);

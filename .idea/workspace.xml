@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="118e6643-7439-4161-8105-fbf3857cd994" name="Default" comment="Refactoring the">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/EdgeData.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/VertexData.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Edge.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Vertex.java" afterPath="" />
+    <list default="true" id="118e6643-7439-4161-8105-fbf3857cd994" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/AbstractVertexQueue.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/FindPaths.java" afterPath="$PROJECT_DIR$/src/FindPaths.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/startercode/BinaryHeap.java" afterPath="$PROJECT_DIR$/src/startercode/BinaryHeap.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/startercode/EmptyHeapException.java" afterPath="$PROJECT_DIR$/src/startercode/EmptyHeapException.java" />
     </list>
     <ignored path="tcss-343-hw6b.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -32,11 +27,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="600">
-      <file leaf-file-name="FindPaths.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="FindPaths.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/FindPaths.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
-              <caret line="38" column="52" selection-start-line="38" selection-start-column="52" selection-end-line="38" selection-end-column="52" />
+            <state relative-caret-position="34">
+              <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AbstractVertexQueue.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/AbstractVertexQueue.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="10" column="57" selection-start-line="10" selection-start-column="57" selection-end-line="10" selection-end-column="57" />
               <folding />
             </state>
           </provider>
@@ -150,6 +155,7 @@
         <option value="$PROJECT_DIR$/src/startercode/EmptyHeapException.java" />
         <option value="$PROJECT_DIR$/src/EdgeData.java" />
         <option value="$PROJECT_DIR$/src/FindPaths.java" />
+        <option value="$PROJECT_DIR$/src/AbstractVertexQueue.java" />
       </list>
     </option>
   </component>
@@ -674,7 +680,7 @@
       <updated>1464126231052</updated>
       <workItem from="1464126233672" duration="6204000" />
       <workItem from="1464483291771" duration="21000" />
-      <workItem from="1464539493757" duration="2617000" />
+      <workItem from="1464539493757" duration="3414000" />
     </task>
     <task id="LOCAL-00001" summary="adding 343 starter code as well">
       <created>1464130073330</created>
@@ -690,11 +696,18 @@
       <option name="project" value="LOCAL" />
       <updated>1464130797850</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Refactoring findgraph, shoving some prototypical ....stuff in to set the tone for how this needs to be done. Removing vertex, edge and graph files that we cannot use.">
+      <created>1464542395941</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1464542395941</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8842000" />
+    <option name="totallyTimeSpent" value="9639000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1552" height="840" extended-state="6" />
@@ -740,7 +753,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="adding 343 starter code as well" />
     <MESSAGE value="adding heap starter code" />
-    <option name="LAST_COMMIT_MESSAGE" value="adding heap starter code" />
+    <MESSAGE value="Refactoring findgraph, shoving some prototypical ....stuff in to set the tone for how this needs to be done. Removing vertex, edge and graph files that we cannot use." />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactoring findgraph, shoving some prototypical ....stuff in to set the tone for how this needs to be done. Removing vertex, edge and graph files that we cannot use." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1009,8 +1023,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/FindPaths.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="38" column="52" selection-start-line="38" selection-start-column="52" selection-end-line="38" selection-end-column="52" />
+        <state relative-caret-position="34">
+          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AbstractVertexQueue.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="57" selection-start-line="10" selection-start-column="57" selection-end-line="10" selection-end-column="57" />
           <folding />
         </state>
       </provider>
