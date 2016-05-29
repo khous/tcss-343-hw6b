@@ -1,3 +1,5 @@
+package dijkstra;
+
 import startercode.Vertex;
 
 /**
@@ -7,6 +9,7 @@ public class VertexData {
     private Vertex penultimateVertex;
     private int distFromSource = Integer.MAX_VALUE;
     private boolean known = false;
+    private int indexInQueue;
 
     public Vertex getPenultimateVertex() {
         return penultimateVertex;
@@ -28,5 +31,13 @@ public class VertexData {
 
     public boolean isKnown() {
         return known;
+    }
+
+    public int getIndexInQueue() {
+        return indexInQueue;
+    }
+
+    public void setIndexInQueue(int indexInQueue) {
+        this.indexInQueue = indexInQueue;
     }
 }

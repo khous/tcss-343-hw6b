@@ -1,3 +1,5 @@
+package dijkstra;
+
 import startercode.Vertex;
 
 import java.util.Collection;

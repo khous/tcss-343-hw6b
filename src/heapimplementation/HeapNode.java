@@ -1,5 +1,6 @@
 package heapimplementation;
 
+import dijkstra.VertexData;
 import startercode.Vertex;
 
 /**
@@ -13,11 +14,12 @@ public class HeapNode implements Comparable {
     private final Vertex vertex;
     /**
      * Constructor.
-     * @param key   the key value
+     * @param v the vertex to add to this heap
      */
     public HeapNode (Vertex v) {
         vertex = v;
-
+        VertexData vData = (VertexData) v.getData();
+        key = vData.getDistFromSource();
     }
     
     
@@ -25,7 +27,10 @@ public class HeapNode implements Comparable {
     public int getKey() {
         return key;
     }
-    
+    public void setKey(int newKey) {
+        key = newKey;
+    }
+
     /**
      * Implements the compareTo method.
      * @param rhs the other heapimplementation.HeapNode object.
@@ -42,5 +47,9 @@ public class HeapNode implements Comparable {
         } else {
             return 1;
         }
+    }
+
+    public Vertex getVertex() {
+        return vertex;
     }
 }

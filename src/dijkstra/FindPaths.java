@@ -1,3 +1,6 @@
+package dijkstra;
+
+import heapimplementation.DijkstraBinaryHeap;
 import startercode.Edge;
 import startercode.SimpleGraph;
 import startercode.Vertex;
@@ -6,16 +9,27 @@ import java.util.*;
 import java.io.*;
 
 public class FindPaths {
+    //Vertices, then edges file path
 	public static void main(String[] args) {
-		SimpleGraph graph = generateGraph(args[0], args[1]);
+        System.out.println(System.getProperty("user.dir"));
+//		SimpleGraph graph = generateGraph(args[0], args[1]);
+		SimpleGraph graph = generateGraph("src\\vertex.txt", "src\\edge.txt");
 		//while true read user input
+        heapImplementation(graph);
 	}
+
+    public static void heapImplementation (SimpleGraph graph) {
+        DijkstraBinaryHeap bHeap = new DijkstraBinaryHeap(graph.numVertices());
+
+        Path p = dijkstra(graph, bHeap, graph.aVertex(), graph.aVertex());
+    }
 
 	public static Scanner readFile (String filePath) {
 		Scanner s;
 		try {
-			s = new Scanner(new File(filePath));
-		} catch(FileNotFoundException e1) {
+			s = new Scanner(new File(System.getProperty("user.dir") + "\\" + filePath));
+		} catch(FileNotFoundException e) {
+            e.printStackTrace();
 			System.err.println("FILE NOT FOUND: " + filePath);
 			System.exit(2);
 			return null;
@@ -61,7 +75,7 @@ public class FindPaths {
      * @return The path from the source to the destination. This path should be null if no such path exists, empty if the
 	 * source is also the destination.
      */
-	private Path dijkstra (SimpleGraph graph, AbstractVertexQueue queue, Vertex source, Vertex destination) {
+	private static Path dijkstra (SimpleGraph graph, AbstractVertexQueue queue, Vertex source, Vertex destination) {
 		Iterator<Vertex> vertexIterator = graph.vertices();
 		//Initialize the vertices in the queue
 		while (vertexIterator.hasNext()) {

@@ -1,3 +1,5 @@
+package dijkstra;
+
 /**
  * Created by kyle on 5/29/2016.
  */

@@ -1,46 +1,54 @@
 /**
- * A binary minheap of comparable objects.
+ * A binary minheap of HeapNode objects.
  * 
  * @author Donald Chinn
  * @version September 19, 2003
  */
 package heapimplementation;
-public class DijkstraBinaryHeap {
+
+import dijkstra.AbstractVertexQueue;
+import dijkstra.VertexData;
+import startercode.Vertex;
+
+public class DijkstraBinaryHeap extends AbstractVertexQueue {
     
     /* the heap is organized using the implicit array implementation.
      * Array index 0 is not used
      */
-    private Comparable[] elements;
+    private HeapNode[] elements;
     private int size;       // index of last element in the heap
     
     // Constructor
     public DijkstraBinaryHeap() {
         int initialCapacity = 10;
         
-        this.elements = new Comparable[initialCapacity + 1];
+        this.elements = new HeapNode[initialCapacity + 1];
         this.elements[0] = null;
         this.size = 0;
     }
-    
+
+    public int getVertexCount() {
+        return size;
+    }
     
     /**
      * Constructor
      * @param capacity  number of active elements the heap can contain
      */    
     public DijkstraBinaryHeap(int capacity) {
-        this.elements = new Comparable[capacity + 1];
+        this.elements = new HeapNode[capacity + 1];
         this.elements[0] = null;
         this.size = 0;
     }
     
     
     /**
-     * Given an array of Comparables, return a binary heap of those
+     * Given an array of HeapNodes, return a binary heap of those
      * elements.
      * @param data  an array of data (no particular order)
      * @return  a binary heap of the given data
      */
-    public static DijkstraBinaryHeap buildHeap(Comparable[] data) {
+    public static DijkstraBinaryHeap buildHeap(HeapNode[] data) {
         DijkstraBinaryHeap newHeap = new DijkstraBinaryHeap(data.length);
         for (int i = 0; i < data.length; i++) {
             newHeap.elements[i+1] = data[i];
@@ -60,18 +68,22 @@ public class DijkstraBinaryHeap {
     public boolean isEmpty() {
         return (size < 1);
     }
-    
-    
+
     /**
-     * Insert an object into the heap.
-     * @param key   a key
+     *
+     * @param v The vertex to emplace
+     * @param distFromSource The new distance from source to set
+     * @return The new index in this queue
      */
-    public void insert(Comparable key) {
+    public int insert(Vertex v, int distFromSource) {
+        VertexData vData = (VertexData) v.getData();
+        vData.setDistFromSource(distFromSource);
+        HeapNode key = new HeapNode(v);
 
         if (size >= elements.length - 1) {
             // not enough room -- create a new array and copy
             // the elements of the old array to the new
-            Comparable[] newElements = new Comparable[2*size];
+            HeapNode[] newElements = new HeapNode[2*size];
             for (int i = 0; i < elements.length; i++) {
                 newElements[i] = elements[i];
             }
@@ -80,25 +92,29 @@ public class DijkstraBinaryHeap {
         
         size++;
         elements[size] = key;
-        percolateUp(size);
+        return percolateUp(size);
     }
-    
+
+    public void decrease(Vertex v, VertexData vData, int newDistFromSource) {
+        int indexInQueue = vData.getIndexInQueue();
+        HeapNode hn = elements[indexInQueue];
+        hn.setKey(newDistFromSource);
+        percolateUp(indexInQueue);
+    }
     
     /**
      * Remove the object with minimum key from the heap.
      * @return  the object with minimum key of the heap
      */
-    public Comparable deleteMin() throws EmptyHeapException {
-        if (!isEmpty()) {
-            Comparable returnValue = elements[1];
-            elements[1] = elements[size];
-            size--;
-            percolateDown(1);
-            return returnValue;
-            
-        } else {
-            throw new EmptyHeapException();
-        }
+    public Vertex deleteMin() {
+        if (isEmpty())
+            return null;
+
+        HeapNode returnValue = elements[1];
+        elements[1] = elements[size];
+        size--;
+        percolateDown(1);
+        return returnValue.getVertex();
     }
     
     
@@ -106,17 +122,25 @@ public class DijkstraBinaryHeap {
      * Given an index in the heap array, percolate that key up the heap.
      * @param index     an index into the heap array
      */
-    private void percolateUp(int index) {
-        Comparable temp = elements[index];  // keep track of the item to be moved
+    private int percolateUp(int index) {
+        HeapNode temp = elements[index];  // keep track of the item to be moved
         while (index > 1) {
             if (temp.compareTo(elements[index/2]) < 0) {
+                //Put my parent down one level
                 elements[index] = elements[index/2];
+                VertexData parentData = (VertexData) elements[index].getVertex().getData();
+                parentData.setIndexInQueue(index);
                 index = index / 2;
             } else {
                 break;
             }
         }
+        //Finally put myself in the correct spot
         elements[index] = temp;
+
+        VertexData vData = (VertexData) temp.getVertex().getData();
+        vData.setIndexInQueue(index);
+        return index;
     }
     
     
@@ -125,25 +149,28 @@ public class DijkstraBinaryHeap {
      * @param index     an index into the heap array
      */
     private void percolateDown(int index) {
-        int child;
-        Comparable temp = elements[index];
+        int childIndex;
+        HeapNode temp = elements[index];
         
         while (2*index <= size) {
-            child = 2 * index;
-            if ((child != size) &&
-                (elements[child + 1].compareTo(elements[child]) < 0)) {
-                child++;
+            childIndex = 2 * index;
+            if ((childIndex != size) &&
+                (elements[childIndex + 1].compareTo(elements[childIndex]) < 0)) {
+                childIndex++;
             }
             // ASSERT: at this point, elements[child] is the smaller of
             // the two children
-            if (elements[child].compareTo(temp) < 0) {
-                elements[index] = elements[child];
-                index = child;
+            if (elements[childIndex].compareTo(temp) < 0) {
+                elements[index] = elements[childIndex];
+                VertexData parentData = (VertexData) elements[index].getVertex().getData();
+                parentData.setIndexInQueue(index);
+                index = childIndex;
             } else {
                 break;
             }
         }
+
+        ((VertexData)temp.getVertex().getData()).setIndexInQueue(index);
         elements[index] = temp;
-    
     }
 }
