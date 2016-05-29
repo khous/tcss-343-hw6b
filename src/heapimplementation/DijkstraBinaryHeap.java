@@ -4,8 +4,8 @@
  * @author Donald Chinn
  * @version September 19, 2003
  */
-package startercode;
-public class BinaryHeap {
+package heapimplementation;
+public class DijkstraBinaryHeap {
     
     /* the heap is organized using the implicit array implementation.
      * Array index 0 is not used
@@ -14,7 +14,7 @@ public class BinaryHeap {
     private int size;       // index of last element in the heap
     
     // Constructor
-    public BinaryHeap() {
+    public DijkstraBinaryHeap() {
         int initialCapacity = 10;
         
         this.elements = new Comparable[initialCapacity + 1];
@@ -27,7 +27,7 @@ public class BinaryHeap {
      * Constructor
      * @param capacity  number of active elements the heap can contain
      */    
-    public BinaryHeap(int capacity) {
+    public DijkstraBinaryHeap(int capacity) {
         this.elements = new Comparable[capacity + 1];
         this.elements[0] = null;
         this.size = 0;
@@ -40,8 +40,8 @@ public class BinaryHeap {
      * @param data  an array of data (no particular order)
      * @return  a binary heap of the given data
      */
-    public static BinaryHeap buildHeap(Comparable[] data) {
-        BinaryHeap newHeap = new BinaryHeap(data.length);
+    public static DijkstraBinaryHeap buildHeap(Comparable[] data) {
+        DijkstraBinaryHeap newHeap = new DijkstraBinaryHeap(data.length);
         for (int i = 0; i < data.length; i++) {
             newHeap.elements[i+1] = data[i];
         }

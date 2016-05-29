@@ -1,18 +1,23 @@
+package heapimplementation;
+
+import startercode.Vertex;
+
 /**
- * A HeapNode has an integer key.
+ * A heapimplementation.HeapNode has an integer key.
  * 
  * @author Donald Chinn
  * @version April 25, 2016
  */
 public class HeapNode implements Comparable {
-    int key;            // the data
-    
+    private int key;            // the data
+    private final Vertex vertex;
     /**
      * Constructor.
      * @param key   the key value
      */
-    public HeapNode (int key) {
-        this.key = key;
+    public HeapNode (Vertex v) {
+        vertex = v;
+
     }
     
     
@@ -23,11 +28,11 @@ public class HeapNode implements Comparable {
     
     /**
      * Implements the compareTo method.
-     * @param rhs the other HeapNode object.
+     * @param rhs the other heapimplementation.HeapNode object.
      * @return 0 if two objects are equal;
      *     less than zero if this object is smaller;
      *     greater than zero if this object is larger.
-     * @exception ClassCastException if rhs is not a HeapNode.
+     * @exception ClassCastException if rhs is not a heapimplementation.HeapNode.
      */
     public int compareTo (Object rhs) {
         if (this.key < ((HeapNode) rhs).key) {

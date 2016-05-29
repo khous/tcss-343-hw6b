@@ -20,7 +20,6 @@ public class FindPaths {
 			System.exit(2);
 			return null;
 		}
-
 		return s;
 	}
 
@@ -52,7 +51,17 @@ public class FindPaths {
 		return outputGraph;
 	}
 
-	private Path dijkstra (SimpleGraph graph, AbstractVertexQueue queue, Vertex source) {
+	/**
+	 * Do dijkstra's algorithm, but return the solution to the single source - destination problem by backtracking from
+	 * the destination
+	 * @param graph The graph to work with
+	 * @param queue The queue implementation
+	 * @param source The source for dijkstra's
+	 * @param destination The desired destination, not necessarily reachable
+     * @return The path from the source to the destination. This path should be null if no such path exists, empty if the
+	 * source is also the destination.
+     */
+	private Path dijkstra (SimpleGraph graph, AbstractVertexQueue queue, Vertex source, Vertex destination) {
 		Iterator<Vertex> vertexIterator = graph.vertices();
 		//Initialize the vertices in the queue
 		while (vertexIterator.hasNext()) {
@@ -93,6 +102,32 @@ public class FindPaths {
 
 		//backtrack path using the penultimate vertex, computing the distances between cities along the way
 
-		return new Path(null, 0);
+		return backtraceFromDestination(source, destination);
+	}
+
+    /**
+     *
+     * @param destination
+     * @return
+     */
+	private static Path backtraceFromDestination (Vertex source, Vertex destination) {
+        if (source == destination) {//Return an empty path if the source is the destination
+            return new Path(new ArrayDeque<>());
+        }
+
+		ArrayDeque<Vertex> path = new ArrayDeque<>();
+		Vertex v = destination;
+
+		while (v != null) {
+			path.push(v);
+			VertexData vData = (VertexData) v.getData();
+            v = vData.getPenultimateVertex();
+		}
+
+        if (path.peekFirst() != source) {//If there is no such path to the destination
+            return null;
+        }
+
+        return new Path(path);
 	}
 }
