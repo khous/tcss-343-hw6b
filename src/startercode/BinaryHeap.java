@@ -4,6 +4,7 @@
  * @author Donald Chinn
  * @version September 19, 2003
  */
+package startercode;
 public class BinaryHeap {
     
     /* the heap is organized using the implicit array implementation.

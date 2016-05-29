@@ -1,4 +1,8 @@
-import java.util.*; 
+import startercode.Edge;
+import startercode.SimpleGraph;
+import startercode.Vertex;
+
+import java.util.*;
 import java.io.*;
 
 /**
@@ -8,84 +12,48 @@ import java.io.*;
 
 public class FindPaths {
 	public static void main(String[] args) {
-//		if(args.length != 2) {
-//			System.err.println("USAGE: java Paths <vertex_file> <edge_file>");
-//			System.exit(1);
-//		}
-		MyGraph g = readGraph(args[0],args[1]);
-		
-//	    String vrtFileName = "C:/Users/Christian/Documents/UWT/t css 342/group project/Proj 3/myVertex.txt";
-//	    String edgFileName = "C:/Users/Christian/Documents/UWT/t css 342/group project/Proj 3/myEdge.txt";
-//      MyGraph g = readGraph(vrtFileName, edgFileName);
-
-
-        @SuppressWarnings("resource")
-		Scanner console = new Scanner(System.in);
-        Collection<Vertex> v = g.vertices();
-        Collection<Edge> e = g.edges();
-		System.out.println("Vertices are "+v);
-		System.out.println("Edges are "+e);
-		while(true) {
-			System.out.print("Start vertex? ");
-			Vertex a = new Vertex(console.nextLine());
-			if(!v.contains(a)) {
-				System.out.println("no such vertex");
-				System.exit(0);
-			}
-			
-			System.out.print("Destination vertex? ");
-			Vertex b = new Vertex(console.nextLine());
-			if(!v.contains(b)) {
-				System.out.println("no such vertex");
-				System.exit(1);
-			}
-
-			Path p = g.shortestPath(a, b);
-			if (!(p == null)){
-				System.out.print("Path : ");
-				for(Vertex vrt : p.vertices){
-					System.out.print(vrt + " ");
-				}
-				System.out.print("\nCost: ");
-				System.out.println(p.cost);
-				System.out.println();
-			}
-		}
+		SimpleGraph graph = generateGraph(args[0], args[1]);
+		//while true read user input
 	}
 
-	public static MyGraph readGraph(String f1, String f2) {
-		Scanner s = null;
+	public static Scanner readFile (String filePath) {
+		Scanner s;
 		try {
-			s = new Scanner(new File(f1));
+			s = new Scanner(new File(filePath));
 		} catch(FileNotFoundException e1) {
-			System.err.println("FILE NOT FOUND: "+f1);
+			System.err.println("FILE NOT FOUND: " + filePath);
 			System.exit(2);
+			return null;
 		}
 
-		Collection<Vertex> v = new ArrayList<Vertex>();
-		while(s.hasNext())
-			v.add(new Vertex(s.next()));
+		return s;
+	}
 
-		try {
-			s = new Scanner(new File(f2));
-		} catch(FileNotFoundException e1) {
-			System.err.println("FILE NOT FOUND: "+f2);
-			System.exit(2);
+	//Edges, vertices
+	private static SimpleGraph generateGraph (String verticesFile, String edgesFile) {
+		Scanner vScanner = readFile(verticesFile),
+				eScanner = readFile(edgesFile);
+		SimpleGraph outputGraph = new SimpleGraph();
+		List<Vertex> vertices = new ArrayList<>();
+		//Map the vertices for O(|V|) when building the graph
+		HashMap<String, Vertex> vHash = new HashMap<>();
+
+		while (vScanner.hasNext()) {
+			Vertex v = outputGraph.insertVertex(null, vScanner.next());
+			vHash.put((String) v.getName(), v);//Save these for building the edges
 		}
 
-		Collection<Edge> e = new ArrayList<Edge>();
-		while(s.hasNext()) {
-			try {
-				Vertex a = new Vertex(s.next());
-				Vertex b = new Vertex(s.next());
-				int w = s.nextInt();
-				e.add(new Edge(a,b,w));
-			} catch (NoSuchElementException e2) {
-				System.err.println("EDGE FILE FORMAT INCORRECT");
-				System.exit(3);
-			}
+		while (eScanner.hasNext()) {
+			String from = eScanner.next();
+			String to = eScanner.next();
+
+			Vertex fromV = vHash.get(from),
+					toV = vHash.get(to);
+
+			int weight = eScanner.nextInt();
+			outputGraph.insertEdge(fromV, toV, new EdgeData(weight), "");
 		}
 
-		return new MyGraph(v,e);
+		return outputGraph;
 	}
 }
