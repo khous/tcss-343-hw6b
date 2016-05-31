@@ -58,6 +58,7 @@ public class FindPaths {
             System.out.println();
             resetSimpleGraph(graph);
         }
+        s.close;
     }
 
     private static void resetSimpleGraph(SimpleGraph g) {

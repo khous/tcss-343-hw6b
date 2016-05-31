@@ -3,7 +3,7 @@ package dijkstra;
 import startercode.Vertex;
 
 import java.util.Collection;
-import java.util.List;
+
 
 public class Path {
 	// we use public fields fields here since this very simple class is
