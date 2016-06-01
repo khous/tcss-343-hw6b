@@ -1,6 +1,6 @@
 package dijkstra;
 
-import heapimplementation.DijkstraBinaryHeap;
+import heapimplementation.DijkstraBinaryHeap; 
 import startercode.Edge;
 import startercode.SimpleGraph;
 import startercode.Vertex;
@@ -8,18 +8,23 @@ import startercode.Vertex;
 import java.util.*;
 import java.io.*;
 
+import arrayImplementation.VertexBucket;
+
 public class FindPaths {
-    //Vertices, then edges file path
+    static int maxEdge;
+	//Vertices, then edges file path
 	public static void main(String[] args) {
         System.out.println(System.getProperty("user.dir"));
 //		SimpleGraph graph = generateGraph(args[0], args[1]);
 		SimpleGraph graph = generateGraph("src\\vertex.txt", "src\\edge.txt");
 		//while true read user input
-        heapImplementation(graph);
+        runDijkstras(graph);
 	}
 
-    public static void heapImplementation (SimpleGraph graph) {
+    public static void runDijkstras (SimpleGraph graph) {
         DijkstraBinaryHeap bHeap = new DijkstraBinaryHeap(graph.numVertices());
+		int arraySize = (graph.numVertices() * maxEdge) + 1;
+		VertexBucket listArr = new VertexBucket(arraySize);
 
         HashMap<String, Vertex> vMap = new HashMap<>();
         Iterator vit = graph.vertices();
@@ -34,12 +39,16 @@ public class FindPaths {
             String userInput = s.next();
             String[] toAndFrom = userInput.split("-");
 
+			String heapOrArray = s.next();
+			//Choose which implementation
+			AbstractVertexQueue q = heapOrArray.equals("h") ? bHeap : listArr;
+
             if (toAndFrom[0].equals("EXIT")) {
                 System.out.println("Goodbye");
                 break;
             }
 
-            Path p = dijkstra(graph, bHeap, vMap.get(toAndFrom[0].toUpperCase()), vMap.get(toAndFrom[1].toUpperCase()));
+            Path p = dijkstra(graph, q, vMap.get(toAndFrom[0].toUpperCase()), vMap.get(toAndFrom[1].toUpperCase()));
 
             VertexData priorData = null;
             Vertex priorVertex = null;
@@ -57,10 +66,11 @@ public class FindPaths {
             System.out.print(" " + priorVertex.getName() + " ( " + priorData.getDistFromSource() + " )");
             System.out.println();
             resetSimpleGraph(graph);
+			listArr = new VertexBucket(arraySize);
         }
         s.close;
     }
-
+    
     private static void resetSimpleGraph(SimpleGraph g) {
         Iterator vit = g.vertices();
 
@@ -106,6 +116,7 @@ public class FindPaths {
 
 			int weight = eScanner.nextInt();
 			outputGraph.insertEdge(fromV, toV, new EdgeData(weight), "");
+			maxEdge = Math.max(maxEdge, weight);
 		}
 
 		return outputGraph;
@@ -190,4 +201,5 @@ public class FindPaths {
 
         return new Path(path);
 	}
+	
 }
